@@ -1,1 +1,1 @@
-# Humano-d-Robotic-Arm
+# Humanoid-Robotic-Arm

@@ -1,0 +1,198 @@
+/* port.css */
+
+body {
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #181c20;
+    padding-top: 60px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+ul {
+    display: flex;
+}
+
+header {
+    background: #23272b;
+    color: #e0e0e0;
+    padding: 0px 10px;
+    border-bottom: 2px solid #00bfff;
+    box-sizing: border-box;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #00bfff;
+    margin-left: 100px;
+    padding: 17px;
+    box-sizing: border-box;
+}
+
+header .logo .highlight {
+    color: #ffffff;
+}
+
+a {
+    text-decoration: none;
+}
+
+header nav ul {
+    font-size: 19px;
+    list-style: none;
+    padding: 0;
+    margin-right: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav ul li {
+    margin-left: 40px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: #00bfff;
+}
+
+header nav ul li a i {
+    margin-right: 5px;
+}
+
+.container {
+    width: 78%;
+    margin: auto;
+    box-sizing: border-box;
+}
+
+#home {
+    background: #181c20;
+    color: #e0e0e0;
+    padding: 100px 20px 40px 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    text-align: left;
+    margin-top: 0px;
+}
+
+.work, .resume {
+    display: inline-block;
+    padding: 15px 20px;
+    margin: 10px;
+    border: 2px solid #00bfff;
+    border-radius: 5px;
+    background-color:  rgba(0,191,255,0.2);
+    color: #00bfff;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+    box-sizing: border-box;
+    width: 180px;
+}
+
+.work {
+    margin-left: 40px;
+}
+
+.resume {
+    margin-left: 200px;
+}
+
+.work:hover, .resume:hover {
+    background-color: #00bfff;
+    color: rgba(0,191,255,0.2);
+}
+
+#home .text {
+    flex: 1;
+    align-self: flex-start;
+    margin-right: 20px;
+}
+
+#home .text h1 {
+    color: #00bfff;
+}
+
+#home .text p {
+    color: #b0b8c1;
+}
+
+.image img {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,191,255,0.2);
+    display: block;
+    margin: 0 auto;
+}
+
+.header-flex {
+  display: flex;
+  align-items: center;
+  gap: 40px; /* Add space between logo and nav */
+}
+
+.header-flex .logo {
+  margin-left: 100px;
+  margin-right: 0; /* Remove extra space on the right */
+  padding: 17px 0;
+}
+
+.header-flex nav ul {
+  margin-right: 0; /* Remove the large right margin */
+}
+
+/* Optional: Reduce nav ul li margin for tighter grouping */
+.header-flex nav ul li {
+  margin-left: 20px;
+}
+
+#home .container {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+#home .container h1 {
+    margin-top: 0;
+    margin-bottom: 8px; /* Reduce space below the title */
+}
+
+#home .container p {
+    margin-top: 0;
+    margin-bottom: 12px; /* Reduce space below the paragraph */
+}
+
+#video {
+  transform: none !important;
+}
+
+.vision-top {
+  position: relative;
+}
+
+.vision-home {
+    margin-top: -120px !important;
+}

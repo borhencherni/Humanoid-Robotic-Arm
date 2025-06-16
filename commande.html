@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commande HTML</title>
+  <link rel="stylesheet" href="websocket.css">
+</head>
+<body>
+  <header>
+    <div class="header-flex">
+      <div class="logo"><span class="highlight">R</span>obotic Arm</div>
+      <nav>
+        <ul>
+          <li><a href="websocketpage.html"><i class="fas fa-home"></i>Accueil</a></li>  
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="home">
+    <div class="container">
+      <h1>Commande Manuelle</h1>
+      <p>Utilisez cette interface pour envoyer des coordonnées (X, Y, Z) au bras robotique.</p>
+      <form id="control-form">
+        <label for="x">X:</label>
+        <input type="number" id="x" name="x" required><br><br>
+
+        <label for="y">Y:</label>
+        <input type="number" id="y" name="y" required><br><br>
+
+        <label for="z">Z:</label>
+        <input type="number" id="z" name="z" required><br><br>
+
+        <button type="submit" class="work">Déplacer</button>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById('control-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const x = document.getElementById('x').value;
+      const y = document.getElementById('y').value;
+      const z = document.getElementById('z').value;
+      
+      // Example: Send via WebSocket
+      const socket = new WebSocket('ws://192.168.1.100:81'); // Replace with your ESP32 IP
+      socket.onopen = () => {
+        const command = JSON.stringify({ x, y, z });
+        socket.send(command);
+      };
+    });
+  </script>
+</body>
+</html>

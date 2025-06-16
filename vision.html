@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ml5.js handPose Webcam Example</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+  <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+  <link rel="stylesheet" href="websocket.css">
+</head>
+
+<body>
+  <header>
+    <div class="header-flex">
+      <div class="logo"><span class="highlight">R</span>obotic Arm</div>
+      <nav>
+        <ul>
+          <li><a href="websocketpage.html"><i class="fas fa-home"></i>Accueil</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="home" class="vision-home">
+    <div class="container vision-top" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <h1>Commande par Vision</h1>
+      <p>Utilisez la reconnaissance des gestes pour contrôler le bras robotique.</p>
+      <div id="canvasContainer"></div>
+      <div style="margin-top: 20px;">
+        <button id="openCamera" class="work" onclick="startCamera()">Ouvrir Caméra</button>
+        <button id="closeCamera" class="resume" onclick="stopCamera()">Fermer Caméra</button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const socket = new WebSocket("ws://192.168.1.19/ws");
+    let connected = false;
+    socket.onopen = () => {
+        console.log("Connected to ESP32");
+        socket.send("Connectiinaa ");
+        connected = true;
+    };
+
+    socket.onmessage = (event) => {
+      console.log("Message from ESP32:", event.data);
+    };
+
+    
+
+    let handPose;
+    let video;
+    let hands = [];
+    let modelLoaded = false;
+    let started = false;
+
+    function preload() {
+      // Load the handPose model
+      handPose = ml5.handPose();
+    }
+    function setup() {
+      createCanvas(640, 480).parent('canvasContainer');
+      background(0);
+    }
+
+    function draw() {
+      if (video && video.loadedmetadata) {
+        image(video, 0, 0, width, height);
+
+        for (let i = 0; i < hands.length; i++) {
+          let hand = hands[i];
+          console.log(JSON.stringify(hand.keypoints));
+          if(connected){
+            socket.send(JSON.stringify(hand.keypoints));
+          }
+          
+          for (let j = 0; j < hand.keypoints.length; j++) {
+            let keypoint = hand.keypoints[j];
+            fill(0, 255, 0);
+            noStroke();
+            circle(keypoint.x, keypoint.y, 10);
+          }
+        }
+      }
+    }
+
+    function gotHands(results) {
+      hands = results;
+    }
+
+    function startCamera() {
+      if (!video) {
+        video = createCapture(VIDEO);
+        video.size(640, 480);
+        video.hide();
+        if(!started){
+            handPose.detectStart(video, gotHands);
+            started = true;
+        }
+      }
+
+      
+    }
+
+    function stopCamera() {
+      if (video) {
+        video.remove();
+        video = null;
+      }
+
+      clear(); 
+      background(0);
+    }
+
+    // Callback function for when handPose outputs data
+        function gotHands(results) {
+            // save the output to the hands variable
+            hands = results;
+        }
+  </script>
+</body>
+
+</html>
